@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card } from '../Card'
 import { Button } from '../Components/Button'
 import { CreateContentModel } from '../Components/CreateContentModel'
@@ -9,13 +9,54 @@ import { useContent } from '../hooks/useContent'
 import axios from 'axios'
 import { BACKEND_URL } from '../config'
 
+interface CardProps {
+  title: string;
+  link: string;
+  type: "twitter" | "youtube";
+}
+
 export function Dashboard() {
    const [modelOpen, setModelOpen] = useState(false);
     const contents = useContent();
 
+/*
+  // Sync filteredContent with contents
+  useEffect(() => {
+    setFilteredContent(contents);
+  }, [contents]);
+
+  const [filteredContent, setFilteredContent] = useState<CardProps[]>(contents);
+
+  const handleFilteredContent = (type: "twitter" | "youtube"): void => {
+    if(!type) {
+      setFilteredContent(contents);
+    } else {
+    const filtered = contents.filter((item) => item.type === type);
+    setFilteredContent(filtered);
+    }
+  };*/
+
+  const [filteredContent, setFilteredContent] = useState<CardProps[]>([]);
+  const [filterType, setFilterType] = useState<"twitter" | "youtube" | null>(null); // Track active filter
+
+  useEffect(() => {
+    if (filterType) {
+      const filtered = contents.filter((item) => item.type === filterType);
+      setFilteredContent(filtered);
+    } else {
+      setFilteredContent(contents);
+    }
+  }, [contents, filterType]);
+
+  const handleFilteredContent = (type?: "twitter" | "youtube"): void => {
+    setFilterType(type || null); // Update filter type
+  };
+
+  
+
 
   return <div>
-    <Sidebar />
+    <Sidebar onFilter={handleFilteredContent} />
     <div className='p-4 ml-72 min-h-screen bg-gray-100 border-2'>
     <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
     <div className='flex justify-end gap-4 pb-4'>
@@ -35,8 +76,9 @@ export function Dashboard() {
        }} variant="secondary" text="Share Brain" startIcon={<Shareicon />}></Button>
    </div>
     <div className='flex gap-4 flex-wrap'>
-      {contents.map(({type, link, title}) => <Card 
-        type={type} 
+      {filteredContent.map(({type, link, title}) => <Card 
+        key={link}
+        type={type}
         link={link} 
         title={title} 
       />)}

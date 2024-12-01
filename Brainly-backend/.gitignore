@@ -1,2 +1,4 @@
+# .gitignore
+secrets.env
 node_modules
 dist

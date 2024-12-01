@@ -1,3 +1,4 @@
+import { Delete } from "./Icons/Delete";
 import { Shareicon } from "./Icons/Shareicon";
 
 interface CardProps {
@@ -7,7 +8,7 @@ interface CardProps {
 }
 
 
-export function  Card ({title,link,type}: CardProps){
+export function Card ({title,link,type}: CardProps){
   return ( <div>
     <div className="p-4 bg-white rounded-md shadow-md border-gray-200 max-w-72 border min-h-48 min-w-72">
         <div className="flex justify-between">
@@ -23,8 +24,8 @@ export function  Card ({title,link,type}: CardProps){
                     <Shareicon />
                   </a>
                 </div>
-                <div className="text-gray-500">
-                    <Shareicon />
+                <div className="text-red-400">
+                    <Delete />
 
                 </div>
 
