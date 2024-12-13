@@ -1,23 +1,57 @@
 # Second-Brain
 This application allows users to store and manage important tweets, URLs, and YouTube videos. It's designed to help users organize their favorite content for personal use or share it with others effortlessly.
 
-#Features
+### Features
 
-#Organized Content Management:
+Tweet Management: Save and organize important tweets.
 
-1.Store and categorize important tweets, URLs, and YouTube videos.
-2.Group content into categories or tags for easy retrieval.
+URL Storage: Keep track of useful links.
 
-#Personalized Collections:
+YouTube Video Organization: Store and categorize favorite YouTube videos.
 
-1.Create personalized collections of content for quick access.
-2.Save your favorite resources for future reference.
+Content Sharing: Share your organized content with others easily.
 
-#Sharing Functionality:
-Share selected content with other users via custom links or social media.
+User-Friendly Interface: Simple and intuitive design for seamless organization.
 
-#Search and Filter:
-Easily search and filter stored content by keywords, tags, or categories.
+### Tech Stack
 
-#Secure Data Storage:
-Data is stored securely to ensure privacy and reliability.
+Frontend: React, HTML, CSS, JavaScript
+
+Backend: Node.js, Express
+
+Database: MongoDB
+
+API Integration: Twitter API, YouTube Data API
+
+### Backend Installation
+1. Navigate to the backend directory:
+   ```bash
+   cd Brainly-backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the backend server:
+   ```bash
+   npm start
+   ```
+
+### Frontend Installation
+1. Navigate to the frontend directory:
+   ```bash
+   cd Brainly-Frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend development server:
+   ```bash
+   npm start
+   ```
+
+
+
+
+   
