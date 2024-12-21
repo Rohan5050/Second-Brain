@@ -1,3 +1,4 @@
+(https://github.com/user-attachments/assets/bac09b35-1a7c-408e-b0d7-d75f2c1acf85)
 # Second-Brain
 This application allows users to store and manage important tweets, URLs, and YouTube videos. It's designed to help users organize their favorite content for personal use or share it with others effortlessly.
 
