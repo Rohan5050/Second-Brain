@@ -1,6 +1,6 @@
 import express from "express";
 import { random } from "./utils";
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken-esm";
 import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_PASSWORD } from "./config";
 import { userMiddleware } from "./middleware";
