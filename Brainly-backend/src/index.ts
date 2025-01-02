@@ -1,6 +1,6 @@
 import express from "express";
 import { random } from "./utils";
-import jwt from "jsonwebtoken-esm";
+import jwt from "jsonwebtoken";
 import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_PASSWORD } from "./config";
 import { userMiddleware } from "./middleware";
@@ -85,8 +85,8 @@ app.get("/api/v1/content", userMiddleware, async (req, res) => {
 app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     const contentId = req.body.contentId;
 
-    await ContentModel.deleteMany({
-        contentId,
+    await ContentModel.deleteOne({
+        _id: contentId,
         userId: req.userId
     })
 

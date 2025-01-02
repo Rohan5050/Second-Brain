@@ -2,9 +2,12 @@
 import mongoose, {model, Schema} from "mongoose";
 require('dotenv').config();
 
-const uri = process.env.MONGO_URI;
+const uri = process.env.MONGO_URI || '';
+if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
+    throw new Error('Invalid MongoDB URI. It must start with "mongodb://" or "mongodb+srv://".');
+}
 
-mongoose.connect("mongodb+srv://rohan055:QoEKt6RX2jbWzZvv@cluster0.ppcnb.mongodb.net/brainly")
+mongoose.connect(uri)
 .then(() => console.log('Database connected'))
 .catch((err) => console.error('Database connection error:', err));
 
