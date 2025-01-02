@@ -15,6 +15,12 @@ app.use(cors({
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS']
 }));
 
+
+app.get("/", (req, res) => {
+    res.send("Backend is working!");
+});
+
+
 // Sign-up route
 app.post("/api/v1/signup", async (req, res) => {
     const username = req.body.username;
