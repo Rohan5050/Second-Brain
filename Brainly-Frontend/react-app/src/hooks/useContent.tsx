@@ -8,17 +8,17 @@ export function useContent () {
     const [contents, setContents] = useState([]);
 
     function refresh () {
-        axios.get(`${BACKEND_URL}/api/v1/content`, {
+        return axios.get(`${BACKEND_URL}/api/v1/content`, {
             headers: {
                 "Authorization": localStorage.getItem("token")
             }
         })
-         
-        
-        
         .then((response) => {
             setContents(response.data.content)
         })
+        .catch((error) => {
+            console.error("Error fetching content:", error);
+        });
     }
 
     useEffect(() => {
