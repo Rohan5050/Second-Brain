@@ -2,12 +2,12 @@
     "version": 2,
     "builds": [
       {
-        "src": "package.json",
+        "src": "src/App.tsx",
         "use": "@vercel/static-build"
       }
     ],
     "env": {
-      "BACKEND_URL": "https://brainly-backend-api.vercel.app"
+      "BACKEND_URL": "https://brainly-backend-api.vercel.app/api/v1/$1"
     }
   }
   

@@ -8,8 +8,8 @@
     ],
     "routes": [
       {
-        "src": "/api/v1/signup",
-        "dest": "/api/v1/signup.js"
+        "src": "/api/v1/(.*)",
+        "dest": "/Brainly-backend"
       }
     ]
   }
