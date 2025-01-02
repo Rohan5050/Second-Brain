@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://brainly-backend-api.vercel.app"
+export const BACKEND_URL = "http://localhost:3000"
