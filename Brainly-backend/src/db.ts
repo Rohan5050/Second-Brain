@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri!)
+mongoose.connect("mongodb+srv://rohan055:QoEKt6RX2jbWzZvv@cluster0.ppcnb.mongodb.net/brainly")
 .then(() => console.log('Database connected'))
 .catch((err) => console.error('Database connection error:', err));
 

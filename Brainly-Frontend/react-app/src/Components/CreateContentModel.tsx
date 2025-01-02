@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import { CrossIcon } from "../Icons/CrossIcon"
 import { Button } from "./Button"
 import { Input } from "./Input"
@@ -12,9 +11,14 @@ enum ContentType {
    Twitter = "twitter"
 }
 
-export function CreateContentModel ({open, onClose}) {
-   const titleRef=useRef();
-   const linkRef=useRef<HTMLInputElement>();
+interface CreateContentModelProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export function CreateContentModel ({open, onClose}: CreateContentModelProps) {
+   const titleRef = useRef<HTMLInputElement>(null);
+   const linkRef = useRef<HTMLInputElement>(null);
    const [type, setType] = useState("youtube");
 
    async function addContent () {

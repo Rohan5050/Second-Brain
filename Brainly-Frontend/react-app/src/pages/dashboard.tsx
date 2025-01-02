@@ -17,7 +17,7 @@ interface CardProps {
 
 export function Dashboard() {
    const [modelOpen, setModelOpen] = useState(false);
-    const contents = useContent();
+    const contents: CardProps[] = useContent();
 
 /*
   // Sync filteredContent with contents
