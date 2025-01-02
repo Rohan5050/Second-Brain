@@ -1,13 +1,18 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "src/App.tsx",
-        "use": "@vercel/static-build"
-      }
-    ],
-    "env": {
-      "BACKEND_URL": "https://brainly-backend-api.vercel.app/api/v1/$1"
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/App.tsx",
+      "use": "@vercel/static-build"
     }
-  }
-  
+  ],
+  "env": {
+    "BACKEND_URL": "https://brainly-backend-livid.vercel.app/api/v1"
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://brainly-backend-livid.vercel.app/api/v1/$1"
+    }
+  ]
+}
