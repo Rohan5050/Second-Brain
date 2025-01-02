@@ -10,7 +10,9 @@ app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173',
     optionsSuccessStatus: 200,
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS']
 }));
 
 // Sign-up route
