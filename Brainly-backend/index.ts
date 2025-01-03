@@ -1,7 +1,57 @@
 import express from "express";
 import cors from "cors";
-import { userMiddleware } from "./middleware";
-import { UserModel, ContentModel, LinkModel } from "./db"; // Ensure correct path to models
+import dotenv from "dotenv";
+import routes from "./routes"; // Import all routes
+
+dotenv.config(); // Load environment variables
+
+const app = express();
+
+// Middlewares
+app.use(express.json());
+app.use(cors({
+    origin: 'https://brainly-frontend-three.vercel.app', // Frontend URL
+    optionsSuccessStatus: 200,
+    credentials: true,
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS']
+}));
+
+// Test route
+app.get("/", (req, res) => {
+    res.send("Backend is working!");
+});
+
+// Use all the routes defined
+app.use(routes);
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+    console.log(`Backend server running on port ${port}`);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import express from "express";
+import cors from "cors";
+import { userMiddleware } from "./middleware/userMiddleware";
+import { UserModel, ContentModel, LinkModel } from "./models/db"; // Ensure correct path to models
 import { SignJWT } from "jose";
 import { TextEncoder } from "util";
 import dotenv from "dotenv";
@@ -22,7 +72,7 @@ app.get("/", (req, res) => {
     res.send("Backend is working!");
 });
 
-// Sign-up route
+// Signup route
 app.post("/api/v1/signup", async (req, res) => {
     const { username, password } = req.body;
 
@@ -36,7 +86,7 @@ app.post("/api/v1/signup", async (req, res) => {
 });
 
 // Sign-in route
-app.post("/api/v1/signin", async (req, res) => {
+app.post("/signin", async (req, res) => {
     const { username, password } = req.body;
 
     const existingUser = await UserModel.findOne({ username, password });
@@ -54,7 +104,7 @@ app.post("/api/v1/signin", async (req, res) => {
 });
 
 // Middleware to verify the JWT
-app.post("/api/v1/content", userMiddleware, async (req, res) => {
+app.post("/content", userMiddleware, async (req, res) => {
     const { link, type, title } = req.body;
 
     await ContentModel.create({

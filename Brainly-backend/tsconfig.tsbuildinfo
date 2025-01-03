@@ -1,1 +1,1 @@
-{"root":["./src/config.ts","./src/db.ts","./src/index.ts","./src/middleware.ts","./src/override.d.ts","./src/utils.ts"],"version":"5.6.3"}
+{"root":["./api/index.ts","./api/utils/config.ts","./api/utils/db.ts","./api/utils/middleware.ts","./api/utils/override.d.ts","./api/utils/utils.ts","./api/v1/signup.ts"],"version":"5.7.2"}
