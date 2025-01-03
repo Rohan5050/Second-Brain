@@ -2,14 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
+      "src": "index.ts", 
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/v1/(.*)",
-      "dest": "/$1"
+      "src": "/api/(.*)",
+      "dest": "/index.ts"
     }
-  ]
+  ],
+  "env": {
+    "JWT_PASSWORD": "@jwt_password", 
+    "MONGO_URI": "@MONGO_URI"
+  }
 }

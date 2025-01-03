@@ -7,12 +7,12 @@
     }
   ],
   "env": {
-    "BACKEND_URL": "https://brainly-backend-livid.vercel.app/api/v1"
+    "BACKEND_URL": "https://brainly-backend-ntw0wdh1o-rohan-vohras-projects.vercel.app/api/v1"
   },
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "https://brainly-backend-livid.vercel.app/api/v1/$1"
+      "dest": "https://brainly-backend-ntw0wdh1o-rohan-vohras-projects.vercel.app/api/v1/$1"
     }
   ]
 }
