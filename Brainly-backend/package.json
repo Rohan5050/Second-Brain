@@ -1,5 +1,5 @@
 {
-  "name": "brainly",
+  "name": "brainly-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "@vercel/node": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
     "jsonwebtoken-esm": "^2.0.1",
