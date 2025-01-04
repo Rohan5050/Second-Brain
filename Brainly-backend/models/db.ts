@@ -7,7 +7,7 @@ import cors from "cors";
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = ["https://brainly-frontend-three.vercel.app/"];
+const allowedOrigins = ["https://brainly-frontend-three.vercel.app"];
 
 app.use(
   cors({
