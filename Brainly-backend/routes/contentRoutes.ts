@@ -11,6 +11,6 @@ router.post("/content", userMiddleware, addContentMiddleware);
 router.get("/api/v1/content", userMiddleware, getContentMiddleware);
 
 // Delete content route
-router.delete("/api/v1/content", userMiddleware, deleteContentMiddleware);
+//router.delete("/api/v1/content", userMiddleware, deleteContentMiddleware);
 
 export default router;

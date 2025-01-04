@@ -1,6 +1,21 @@
 
+import express from "express"
 import mongoose, {model, Schema} from "mongoose";
 require('dotenv').config();
+import cors from "cors";
+
+const app = express();
+app.use(express.json());
+
+const allowedOrigins = ["https://brainly-frontend-three.vercel.app/"];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // Include credentials if necessary
+  })
+);
+
 
 const uri = process.env.MONGO_URI || '';
 if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
@@ -21,9 +36,9 @@ export const UserModel = model("User", UserSchema);
 const ContentSchema = new Schema({
     title: String,
     link: String,
-    tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
+    //tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
     type: String,
-    userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true },
+    //userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true },
 })
 
 const LinkSchema = new Schema({

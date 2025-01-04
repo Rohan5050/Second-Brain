@@ -1,5 +1,5 @@
-import { Delete } from "./Icons/Delete";
-import { Shareicon } from "./Icons/Shareicon";
+import { Delete } from "../Icons/Delete";
+import { Shareicon } from "../Icons/Shareicon";
 
 interface CardProps {
   title: string;

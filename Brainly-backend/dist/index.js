@@ -11,12 +11,7 @@ dotenv_1.default.config(); // Load environment variables
 const app = (0, express_1.default)();
 // Middlewares
 app.use(express_1.default.json());
-app.use((0, cors_1.default)({
-    origin: 'https://brainly-frontend-three.vercel.app', // Frontend URL
-    optionsSuccessStatus: 200,
-    credentials: true,
-    methods: ['GET', 'POST', 'DELETE', 'OPTIONS']
-}));
+app.use((0, cors_1.default)());
 // Test route
 app.get("/", (req, res) => {
     res.send("Backend is working!");

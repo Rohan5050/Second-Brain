@@ -9,12 +9,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors({
-    origin: 'https://brainly-frontend-three.vercel.app', // Frontend URL
-    optionsSuccessStatus: 200,
-    credentials: true,
-    methods: ['GET', 'POST', 'DELETE', 'OPTIONS']
-}));
+app.use(cors());
 
 // Test route
 app.get("/", (req, res) => {

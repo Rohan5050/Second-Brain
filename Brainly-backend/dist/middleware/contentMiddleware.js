@@ -18,23 +18,20 @@ const addContentMiddleware = (req, res) => __awaiter(void 0, void 0, void 0, fun
         link,
         type,
         title,
-        userId: req.userId,
-        tags: []
     });
     res.json({ message: "Content added" });
 });
 exports.addContentMiddleware = addContentMiddleware;
 // Get content route logic
 const getContentMiddleware = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req;
-    const content = yield db_1.ContentModel.find({ userId }).populate("userId", "username");
+    const content = yield db_1.ContentModel.find(); // Fetch all content without userId
     res.json({ content });
 });
 exports.getContentMiddleware = getContentMiddleware;
 // Delete content route logic
 const deleteContentMiddleware = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { contentId } = req.body;
-    yield db_1.ContentModel.deleteMany({ contentId, userId: req.userId });
+    yield db_1.ContentModel.deleteMany({ contentId });
     res.json({ message: "Deleted" });
 });
 exports.deleteContentMiddleware = deleteContentMiddleware;
@@ -42,17 +39,17 @@ exports.deleteContentMiddleware = deleteContentMiddleware;
 const shareLinkMiddleware = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { share } = req.body;
     if (share) {
-        const existingLink = yield db_1.LinkModel.findOne({ userId: req.userId });
+        const existingLink = yield db_1.LinkModel.findOne(); // Removed userId dependency
         if (existingLink) {
             res.json({ hash: existingLink.hash });
             return;
         }
         const hash = Math.random().toString(36).substring(7); // Random hash generation
-        yield db_1.LinkModel.create({ userId: req.userId, hash });
+        yield db_1.LinkModel.create({ hash });
         res.json({ hash });
     }
     else {
-        yield db_1.LinkModel.deleteOne({ userId: req.userId });
+        yield db_1.LinkModel.deleteOne();
         res.json({ message: "Removed link" });
     }
 });
@@ -65,12 +62,7 @@ const fetchSharedLinkMiddleware = (req, res) => __awaiter(void 0, void 0, void 0
         res.status(411).json({ message: "Sorry, incorrect input" });
         return;
     }
-    const content = yield db_1.ContentModel.find({ userId: link.userId });
-    const user = yield db_1.UserModel.findOne({ _id: link.userId });
-    if (!user) {
-        res.status(411).json({ message: "User not found, error should ideally not happen" });
-        return;
-    }
-    res.json({ username: user.username, content });
+    const content = yield db_1.ContentModel.find(); // Fetch content without userId
+    res.json({ content });
 });
 exports.fetchSharedLinkMiddleware = fetchSharedLinkMiddleware;

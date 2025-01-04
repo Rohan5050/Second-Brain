@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ContentModel, LinkModel, UserModel } from "../models/db";
+import { ContentModel, LinkModel } from "../models/db";
 
 // Add content route logic
 export const addContentMiddleware = async (req: Request, res: Response) => {
@@ -9,8 +9,6 @@ export const addContentMiddleware = async (req: Request, res: Response) => {
         link,
         type,
         title,
-        userId: req.userId,
-        tags: []
     });
 
     res.json({ message: "Content added" });
@@ -18,8 +16,7 @@ export const addContentMiddleware = async (req: Request, res: Response) => {
 
 // Get content route logic
 export const getContentMiddleware = async (req: Request, res: Response) => {
-    const { userId } = req;
-    const content = await ContentModel.find({ userId }).populate("userId", "username");
+    const content = await ContentModel.find(); // Fetch all content without userId
     res.json({ content });
 };
 
@@ -27,7 +24,7 @@ export const getContentMiddleware = async (req: Request, res: Response) => {
 export const deleteContentMiddleware = async (req: Request, res: Response) => {
     const { contentId } = req.body;
 
-    await ContentModel.deleteMany({ contentId, userId: req.userId });
+    await ContentModel.deleteMany({ contentId });
 
     res.json({ message: "Deleted" });
 };
@@ -37,7 +34,7 @@ export const shareLinkMiddleware = async (req: Request, res: Response) => {
     const { share } = req.body;
 
     if (share) {
-        const existingLink = await LinkModel.findOne({ userId: req.userId });
+        const existingLink = await LinkModel.findOne(); // Removed userId dependency
 
         if (existingLink) {
             res.json({ hash: existingLink.hash });
@@ -45,10 +42,10 @@ export const shareLinkMiddleware = async (req: Request, res: Response) => {
         }
 
         const hash = Math.random().toString(36).substring(7); // Random hash generation
-        await LinkModel.create({ userId: req.userId, hash });
+        await LinkModel.create({ hash });
         res.json({ hash });
     } else {
-        await LinkModel.deleteOne({ userId: req.userId });
+        await LinkModel.deleteOne();
         res.json({ message: "Removed link" });
     }
 };
@@ -64,13 +61,6 @@ export const fetchSharedLinkMiddleware = async (req: Request, res: Response) => 
         return;
     }
 
-    const content = await ContentModel.find({ userId: link.userId });
-    const user = await UserModel.findOne({ _id: link.userId });
-
-    if (!user) {
-        res.status(411).json({ message: "User not found, error should ideally not happen" });
-        return;
-    }
-
-    res.json({ username: user.username, content });
+    const content = await ContentModel.find(); // Fetch content without userId
+    res.json({ content });
 };

@@ -16,7 +16,7 @@ import { BACKEND_URL } from "../config"
   async function signin () {
       const username = usernameRef.current?.value;
       const password = passwordRef.current?.value;
-     const response = await axios.post(BACKEND_URL + "/api/v1/signin", {
+     const response = await axios.post(BACKEND_URL + "/signin", {
               username,
               password
       })
