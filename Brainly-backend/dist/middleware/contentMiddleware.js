@@ -13,19 +13,44 @@ exports.fetchSharedLinkMiddleware = exports.shareLinkMiddleware = exports.delete
 const db_1 = require("../models/db");
 // Add content route logic
 const addContentMiddleware = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { link, type, title } = req.body;
-    yield db_1.ContentModel.create({
-        link,
-        type,
-        title,
-    });
-    res.json({ message: "Content added" });
+    try {
+        const { title, link, type } = req.body;
+        const userId = req.userId; // Ensure `userId` is extracted from the authenticated request
+        if (!userId) {
+            res.status(403).json({ message: "User not authenticated" });
+            return;
+        }
+        // Create a new content document
+        const content = yield db_1.ContentModel.create({
+            title,
+            link,
+            type,
+            userId, // Attach userId to the document
+        });
+        res.status(201).json({ message: "Content added", content });
+    }
+    catch (error) {
+        console.error("Error adding content:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 exports.addContentMiddleware = addContentMiddleware;
 // Get content route logic
 const getContentMiddleware = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const content = yield db_1.ContentModel.find(); // Fetch all content without userId
-    res.json({ content });
+    try {
+        const userId = req.userId; // Extract userId from the authenticated request
+        if (!userId) {
+            res.status(403).json({ message: "User ID missing" });
+            return;
+        }
+        // Fetch content specific to the logged-in user
+        const content = yield db_1.ContentModel.find({ userId });
+        res.status(200).json({ content });
+    }
+    catch (error) {
+        console.error("Error fetching content:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 exports.getContentMiddleware = getContentMiddleware;
 // Delete content route logic

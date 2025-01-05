@@ -1,8 +1,8 @@
-import { Router } from "express";
+import express from "express";
 import { addContentMiddleware, getContentMiddleware, deleteContentMiddleware } from "../middleware/contentMiddleware";
 import { userMiddleware } from "../middleware/userMiddleware";
 
-const router = Router();
+const router = express.Router();
 
 // Add content route
 router.post("/content", userMiddleware, addContentMiddleware);

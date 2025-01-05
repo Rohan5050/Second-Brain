@@ -7,7 +7,7 @@ import cors from "cors";
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = ["https://brainly-frontend-three.vercel.app"];
+const allowedOrigins = ["https://brainly-frontend-three.vercel.app/"];
 
 app.use(
   cors({
@@ -38,7 +38,7 @@ const ContentSchema = new Schema({
     link: String,
     //tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
     type: String,
-    //userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true },
+    userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true },
 })
 
 const LinkSchema = new Schema({

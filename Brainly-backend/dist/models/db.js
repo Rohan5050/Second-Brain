@@ -32,10 +32,22 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContentModel = exports.LinkModel = exports.UserModel = void 0;
+const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importStar(require("mongoose"));
 require('dotenv').config();
+const cors_1 = __importDefault(require("cors"));
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+const allowedOrigins = ["https://brainly-frontend-three.vercel.app/"];
+app.use((0, cors_1.default)({
+    origin: allowedOrigins,
+    credentials: true, // Include credentials if necessary
+}));
 const uri = process.env.MONGO_URI || '';
 if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
     throw new Error('Invalid MongoDB URI. It must start with "mongodb://" or "mongodb+srv://".');
@@ -53,7 +65,7 @@ const ContentSchema = new mongoose_1.Schema({
     link: String,
     //tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
     type: String,
-    //userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: mongoose_1.default.Types.ObjectId, ref: 'User', required: true },
 });
 const LinkSchema = new mongoose_1.Schema({
     hash: String,

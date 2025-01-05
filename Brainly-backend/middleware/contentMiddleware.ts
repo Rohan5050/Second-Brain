@@ -2,22 +2,50 @@ import { Request, Response } from "express";
 import { ContentModel, LinkModel } from "../models/db";
 
 // Add content route logic
-export const addContentMiddleware = async (req: Request, res: Response) => {
-    const { link, type, title } = req.body;
 
-    await ContentModel.create({
-        link,
-        type,
-        title,
+export const addContentMiddleware = async (req: Request, res: Response) => {
+  try {
+    const { title, link, type } = req.body;
+    const userId = req.userId; // Ensure `userId` is extracted from the authenticated request
+
+    if (!userId) {
+      res.status(403).json({ message: "User not authenticated" });
+      return;
+    }
+
+    // Create a new content document
+    const content = await ContentModel.create({
+      title,
+      link,
+      type,
+      userId, // Attach userId to the document
     });
 
-    res.json({ message: "Content added" });
+    res.status(201).json({ message: "Content added", content });
+  } catch (error) {
+    console.error("Error adding content:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 // Get content route logic
 export const getContentMiddleware = async (req: Request, res: Response) => {
-    const content = await ContentModel.find(); // Fetch all content without userId
-    res.json({ content });
+    try {
+        const userId = req.userId; // Extract userId from the authenticated request
+        
+        if (!userId) {
+          res.status(403).json({ message: "User ID missing" });
+          return;
+        }
+    
+        // Fetch content specific to the logged-in user
+        const content = await ContentModel.find({ userId });
+
+        res.status(200).json({ content });
+      } catch (error) {
+        console.error("Error fetching content:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
 };
 
 // Delete content route logic
