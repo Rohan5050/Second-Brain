@@ -35,18 +35,19 @@ export function Signup() {
     }
 
     return (
-        <div className="h-screen w-screen bg-gray-200 flex flex-col justify-center items-center">
-            <div className="bg-white rounded-xl border p-8 w-full max-w-md">
-            <h2 className="text-center text-3xl mb-4">Signup</h2>
-            <div className="flex flex-col justify-center items-center">
-            <Input reference={usernameRef} placeholder="Username" />
-            <Input reference={passwordRef} placeholder="Password"/>
-            </div>
-            <div className="flex justify-center mt-4 p-8 text-lg">
-                <Button onClick={signup} variant="primary" text="Signup Now" fullWidth={true} />
-            </div>
-            </div>
+        <div className="h-screen w-screen bg-gray-200 flex flex-col justify-center items-center px-8 sm:px-6 lg:px-8">
+       <div className="bg-white rounded-xl border p-8 w-full max-w-sm sm:max-w-md">
+          <h2 className="text-center text-2xl sm:text-3xl mb-4">Signup</h2>
+       <div className="flex flex-col justify-center items-center gap-4">
+         <Input reference={usernameRef} placeholder="Username" />
+         <Input reference={passwordRef} placeholder="Password" />
+       </div>
+       <div className="flex justify-center mt-4 px-4 sm:px-8 text-base sm:text-lg">
+          <Button onClick={signup} variant="primary" text="Sign Up Now" fullWidth={true} />
         </div>
+       </div>
+       </div>
+        
     );
 }
 

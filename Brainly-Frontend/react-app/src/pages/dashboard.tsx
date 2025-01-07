@@ -57,23 +57,24 @@ export function Dashboard() {
   return (
     <div>
       <Sidebar onFilter={handleFilteredContent} />
-      <div className='p-4 ml-72 min-h-screen bg-gray-100 border-2'>
+      <div className="p-4 ml-72 min-h-screen bg-gray-100 border-2">
         <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
-        <div className='flex justify-end gap-4 pb-4'>
+        <div className="flex justify-end gap-4 pb-4">
           <Button
             onClick={() => setModelOpen(true)}
-            variant='primary'
-            text='Add Content'
+            variant="primary"
+            text="Add Content"
             startIcon={<Plusicon />}
           />
           <Button
             onClick={handleShare}
-            variant='secondary'
-            text='Share Brain'
+            variant="secondary"
+            text={isSharing ? "Sharing..." : "Share Brain"}
             startIcon={<Shareicon />}
+            //disabled={isSharing} // Disable while sharing
           />
         </div>
-        <div className='flex gap-4 flex-wrap'>
+        <div className="flex gap-4 flex-wrap">
           {filteredContent.map(({ type, link, title }) => (
             <Card key={link} type={type} link={link} title={title} />
           ))}
@@ -102,7 +103,7 @@ export function Dashboard() {
     }
   };*/
 
-import { useState, useEffect } from "react";
+  import { useState, useEffect } from "react";
 import { Card } from "../Components/Card";
 import { Button } from "../Components/Button";
 import { CreateContentModel } from "../Components/CreateContentModel";
@@ -174,26 +175,27 @@ export function Dashboard() {
   return (
     <div>
       <Sidebar onFilter={handleFilteredContent} />
-      <div className="p-4 ml-72 min-h-screen bg-gray-100 border-2">
+      <div className="p-4">
         <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
-        <div className="flex justify-end gap-4 pb-4">
+        <div className="fixed mb-20 right-4 bottom-4 md:top-4 md:bottom-auto flex flex-col md:flex-row gap-4">
           <Button
-            onClick={() => setModelOpen(true)}
-            variant="primary"
-            text="Add Content"
-            startIcon={<Plusicon />}
+        onClick={() => setModelOpen(true)}
+        variant="primary"
+        text="Add Content"
+        startIcon={<Plusicon />}
           />
           <Button
-            onClick={handleShare}
-            variant="secondary"
-            text={isSharing ? "Sharing..." : "Share Brain"}
-            startIcon={<Shareicon />}
-            //disabled={isSharing} // Disable while sharing
+        onClick={handleShare}
+        variant="secondary"
+        text={isSharing ? "Sharing..." : "Share Brain"}
+        startIcon={<Shareicon />}
+        //disabled={isSharing} // Disable while sharing
           />
         </div>
-        <div className="flex gap-4 flex-wrap">
+
+        <div className="mt-16 flex gap-4 flex-wrap">
           {filteredContent.map(({ type, link, title }) => (
-            <Card key={link} type={type} link={link} title={title} />
+        <Card key={link} type={type} link={link} title={title} />
           ))}
         </div>
       </div>

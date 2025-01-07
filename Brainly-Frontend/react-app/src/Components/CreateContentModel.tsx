@@ -100,7 +100,7 @@ export function CreateContentModel({ open, onClose }: CreateContentModelProps) {
               </div>
             </span>
           </div>
-          <div className="flex flex-col justify-center"></div>
+          <div className="flex flex-col justify-center md:flex flex-row justify-center"></div>
         </div>
       )}
     </div>
