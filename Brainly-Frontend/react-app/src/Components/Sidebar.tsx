@@ -73,7 +73,7 @@ export function Sidebar({ onFilter }: SidebarProps) {
         } md:w-72 z-10 overflow-hidden`}
       >
         <div className="flex text-2xl pt-8 items-center">
-        <div className="pl-2 pr-6 text-purple-400">
+        <div className="pl-6 pr-6 text-purple-400">
             <Logo />
         </div>
         Second Brain

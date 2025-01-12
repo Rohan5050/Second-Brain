@@ -1,5 +1,6 @@
 import { Delete } from "../Icons/Delete";
 import { Shareicon } from "../Icons/Shareicon";
+import { Editicon } from "../Icons/Editicon";
 
 interface CardProps {
   title: string;
@@ -13,8 +14,8 @@ export function Card ({title,link,type}: CardProps){
     <div className="p-2 bg-white rounded-md shadow-md border-gray-200 max-w-72 border min-h-48 min-w-72 sm:ml-72">
         <div className="flex justify-between">
             <div className="flex items-center text-md">
-                <div className="text-gray-500 pr-2">
-                  <Shareicon />
+                <div className="text-gray-500 pr-2 cursor-pointer">
+                  <Editicon />
                 </div>
                 {title}
             </div>
@@ -24,7 +25,7 @@ export function Card ({title,link,type}: CardProps){
                     <Shareicon />
                   </a>
                 </div>
-                <div className="text-red-400">
+                <div className="text-red-400 cursor-pointer">
                     <Delete />
 
                 </div>

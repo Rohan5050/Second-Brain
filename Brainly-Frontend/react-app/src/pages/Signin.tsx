@@ -36,7 +36,7 @@ return (
       <Input reference={usernameRef} placeholder="Username" />
       <Input reference={passwordRef} placeholder="Password" />
     </div>
-    <div className="flex justify-center mt-4 px-4 sm:px-8 text-base sm:text-lg">
+    <div className="flex justify-center mt-4 px-4 sm:px-8 text-base sm:text-lg relative z-10 w-full px-4 py-2 rounded-md text-lg font-semibold transition-transform duration-150 ease-out">
       <Button onClick={signin} variant="primary" text="Sign In" fullWidth={true} />
     </div>
   </div>
