@@ -41,7 +41,7 @@ API Integration: Twitter API, YouTube Data API
 ### Frontend Installation
 1. Navigate to the frontend directory:
    ```bash
-   cd Brainly-Frontend
+   cd Brainly-Frontend && cd react-app
    ```
 2. Install dependencies:
    ```bash
