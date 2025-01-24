@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Components/Button"
 import { Input } from "../Components/Input"
+//const BACKEND_URL = process.env.BACKEND_URL;
 import { BACKEND_URL } from "../config"; // Ensure BACKEND_URL is set in config or environment variable
 
 export function Signup() {
