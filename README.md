@@ -1,4 +1,4 @@
-(https://github.com/user-attachments/assets/bac09b35-1a7c-408e-b0d7-d75f2c1acf85)
+![Screenshot](https://github.com/user-attachments/assets/9a984b9f-9acf-4372-b211-d2beb5724606)
 # Second-Brain
 This application allows users to store and manage important tweets, URLs, and YouTube videos. It's designed to help users organize their favorite content for personal use or share it with others effortlessly.
 
@@ -13,6 +13,7 @@ YouTube Video Organization: Store and categorize favorite YouTube videos.
 Content Sharing: Share your organized content with others easily.
 
 User-Friendly Interface: Simple and intuitive design for seamless organization.
+
 
 ### Tech Stack
 
