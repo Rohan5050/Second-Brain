@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
-
-interface CardProps {
-  title: string;
-  link: string;
-  type: "twitter" | "youtube";
-}
+import { CardProps } from "../types/CardProps";
 
 export function useContent(): { contents: CardProps[] } {
   const [contents, setContents] = useState<CardProps[]>([]);
+
 
   function refresh() {
     const token = localStorage.getItem("token");
@@ -22,7 +18,7 @@ export function useContent(): { contents: CardProps[] } {
     return axios
       .get(`${BACKEND_URL}/api/v1/content`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Send token with "Bearer" prefix
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
@@ -32,6 +28,7 @@ export function useContent(): { contents: CardProps[] } {
         console.error("Error fetching content:", error);
       });
   }
+
 
   useEffect(() => {
     refresh();

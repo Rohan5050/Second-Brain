@@ -9,13 +9,9 @@ import { useContent } from "../hooks/useContent";
 import axios from "axios";
 //const BACKEND_URL = process.env.BACKEND_URL;
 import { BACKEND_URL } from "../config";
+import { CardProps } from "../types/CardProps";
 
 
-interface CardProps {
-  title: string;
-  link: string;
-  type: "twitter" | "youtube";
-}
 
 export function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
@@ -91,8 +87,8 @@ export function Dashboard() {
         </div>
 
         <div className="mt-16 flex gap-4 flex-wrap">
-          {filteredContent.map(({ type, link, title }) => (
-        <Card key={link} type={type} link={link} title={title} />
+          {filteredContent.map(({ _id,type, link, title }) => (
+        <Card key={_id} _id={_id} type={type} link={link} title={title} />
           ))}
         </div>
       </div>

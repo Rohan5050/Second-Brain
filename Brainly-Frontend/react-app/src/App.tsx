@@ -13,7 +13,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
      </Route>
     </Routes>
+
+
   </BrowserRouter>
+  
 )}
 
 export default App

@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CrossIcon } from "../Icons/CrossIcon";
 import { Button } from "./Button";
 import { Input } from "./Input";
-import { useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
@@ -20,90 +19,101 @@ export function CreateContentModel({ open, onClose }: CreateContentModelProps) {
   const titleRef = useRef<HTMLInputElement>(null);
   const linkRef = useRef<HTMLInputElement>(null);
   const [type, setType] = useState("youtube");
-  const [error, setError] = useState<string | null>(null); // Added error state
+  const [fieldErrors, setFieldErrors] = useState<{ title?: string; link?: string }>({});
+  const [globalError, setGlobalError] = useState<string | null>(null);
 
   async function addContent() {
-    const title = titleRef.current?.value;
-    const link = linkRef.current?.value;
+    const title = titleRef.current?.value?.trim();
+    const link = linkRef.current?.value?.trim();
 
-    if (!title || !link) {
-      setError("Title and Link are required."); // Error for missing fields
-      return;
-    }
+    const errors: { title?: string; link?: string } = {};
+    if (!title) errors.title = "Title is required";
+    if (!link) errors.link = "Link is required";
+
+    setFieldErrors(errors);
+
+    if (Object.keys(errors).length > 0) return;
 
     try {
-      // Send POST request to create content
       await axios.post(
         `${BACKEND_URL}/content`,
-        {
-          link,
-          title,
-          type,
-        },
+        { link, title, type },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Updated to include Bearer prefix
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
 
-      setError(null); // Clear any previous errors
-      onClose(); // Close the model after successful submission
+      setGlobalError(null);
+      onClose();
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error creating content:", error.message);
-      } else {
-        console.error("Error creating content:", error);
       }
-      setError("Failed to create content. Please check your inputs or token.");
+      setGlobalError("Failed to create content. Please check your inputs or token.");
     }
   }
 
   return (
     <div>
       {open && (
-        <div>
-          <div className="w-screen h-screen bg-slate-500 fixed top-0 left-0 opacity-60 flex justify-center"></div>
-          <div className="w-screen h-screen fixed left-0 flex justify-center">
-            <span className="bg-white opacity-100 p-4 rounded fixed">
-              <div className="flex justify-end">
-                <div onClick={onClose} className="cursor-pointer">
-                  <CrossIcon />
-                </div>
-              </div>
-              <div>
-                <Input reference={titleRef} placeholder={"Title"} />
-                <Input reference={linkRef} placeholder={"Link"} />
-                {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
-                <div>
-                  <h1>Type</h1>
-                  <div className="flex p-4 gap-2 justify-center">
-                    <Button
-                      text="Youtube"
-                      variant={type === ContentType.Youtube ? "primary" : "secondary"}
-                      onClick={() => {
-                        setType(ContentType.Youtube);
-                      }}
-                    ></Button>
-                    <Button
-                      text="Twitter"
-                      variant={type === ContentType.Twitter ? "primary" : "secondary"}
-                      onClick={() => {
-                        setType(ContentType.Twitter);
-                      }}
-                    ></Button>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-center">
-                <Button onClick={addContent} variant="primary" text="Submit" />
-              </div>
-            </span>
+      <div>
+        <div className="w-screen h-screen bg-slate-500 fixed top-0 left-0 opacity-60 z-40"></div>
+        <div className="w-screen h-screen fixed left-0 flex justify-center items-center z-50">
+        <div className="bg-white opacity-100 p-4 sm:p-6 m-6 rounded shadow-lg w-[95%] sm:w-full max-w-md mx-2">
+          <div className="flex justify-end mb-2">
+          <div onClick={onClose} className="cursor-pointer p-2">
+            <CrossIcon />
           </div>
-          <div className="flex flex-col justify-center md:flex flex-row justify-center"></div>
+          </div>
+          <div className="space-y-4">
+          <div>
+            <Input reference={titleRef} placeholder={"Title"} />
+            {fieldErrors.title && (
+            <p className="text-red-500 text-sm mt-1">{fieldErrors.title}</p>
+            )}
+          </div>
+
+          <div>
+            <Input reference={linkRef} placeholder={"Link"} />
+            {fieldErrors.link && (
+            <p className="text-red-500 text-sm mt-1">{fieldErrors.link}</p>
+            )}
+          </div>
+
+          <div>
+            <h1 className="font-medium text-center sm:text-left">Type</h1>
+            <div className="flex flex-col sm:flex-row mx-auto sm:w-40 p-2 gap-2 items-center sm:justify-center">
+            <Button
+              text="Youtube"
+              variant={type === ContentType.Youtube ? "primary" : "secondary"}
+              onClick={() => setType(ContentType.Youtube)}
+            />
+            <Button
+              text="Twitter"
+              variant={type === ContentType.Twitter ? "primary" : "secondary"}
+              onClick={() => setType(ContentType.Twitter)}
+            />
+            </div>
+          </div>
+
+          {globalError && (
+            <p className="text-red-600 text-center text-sm">{globalError}</p>
+          )}
+
+            <div className="flex justify-center pt-2">
+            <Button 
+              onClick={addContent} 
+              variant="primary" 
+              text="Submit"
+            />
+            </div>
+          </div>
         </div>
+        </div>
+      </div>
       )}
     </div>
   );
 }
-
