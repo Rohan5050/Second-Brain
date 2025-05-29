@@ -50,11 +50,18 @@ export const getContentMiddleware = async (req: Request, res: Response) => {
 
 // Delete content route logic
 export const deleteContentMiddleware = async (req: Request, res: Response) => {
-    const { contentId } = req.body;
+   const { contentId } = req.body;
 
-    await ContentModel.deleteMany({ contentId });
+  if (!contentId) {
+    res.status(400).json({ message: "Content ID is required" });
+  }
 
-    res.json({ message: "Deleted" });
+  try {
+    await ContentModel.deleteOne({ _id: contentId });
+    res.json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete", error });
+  }
 };
 
 // Share link route logic
