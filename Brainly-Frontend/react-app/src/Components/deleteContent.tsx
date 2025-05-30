@@ -1,10 +1,10 @@
 import axios from "axios";
-//import { BACKEND_URL } from "../config";
+import { BACKEND_URL } from "../config";
 
 
 export async function deleteContent(id: string) {
 try {
-    const response = await axios.delete(`http://localhost:5000/api/v1/deletecontent`, {
+    const response = await axios.delete(`${BACKEND_URL}/api/v1/deletecontent`, {
         data: { contentId: id },
     });
     return response.data;

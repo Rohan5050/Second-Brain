@@ -68,14 +68,14 @@ export function CreateContentModel({ open, onClose }: CreateContentModelProps) {
           </div>
           </div>
           <div className="space-y-4">
-          <div>
+            <div className="text-center">
             <Input reference={titleRef} placeholder={"Title"} />
             {fieldErrors.title && (
             <p className="text-red-500 text-sm mt-1">{fieldErrors.title}</p>
             )}
-          </div>
+            </div>
 
-          <div>
+          <div className="text-center">
             <Input reference={linkRef} placeholder={"Link"} />
             {fieldErrors.link && (
             <p className="text-red-500 text-sm mt-1">{fieldErrors.link}</p>

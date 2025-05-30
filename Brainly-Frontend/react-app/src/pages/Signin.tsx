@@ -13,7 +13,7 @@ import { BACKEND_URL } from "../config"
   const navigate = useNavigate();
 
   async function signin () {
-      const username = usernameRef.current?.value;
+     try {const username = usernameRef.current?.value;
       const password = passwordRef.current?.value;
      const response = await axios.post(BACKEND_URL + "/signin", {
               username,
@@ -24,6 +24,14 @@ import { BACKEND_URL } from "../config"
       localStorage.setItem("token", jwt);
       // redirect user to the dashboard
       navigate("/dashboard");
+     } catch (error) {
+        // You can add more specific error handling based on error.response.status
+        if (axios.isAxiosError(error)) {
+          alert(error.response?.data?.message || "Failed to sign in");
+        } else {
+          alert("An unexpected error occurred");
+        }
+      }
 
 
   }
@@ -38,6 +46,17 @@ return (
     <div className="flex justify-center mt-4 sm:px-8 sm:text-lg relative z-10 w-full px-4 py-2 rounded-md text-lg font-semibold transition-transform duration-150 ease-out">
       <Button onClick={signin} variant="primary" text="Sign In" fullWidth={true} />
     </div>
+    <div className="flex justify-center mt-2">
+          <p className="text-xs text-muted-foreground">
+            Don't have an account?{' '}
+            <a
+              href="/signup"
+              className="font-smallS text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 transition-colors"
+            >
+              Sign up
+            </a>
+          </p>
+        </div>
   </div>
 </div>
 )

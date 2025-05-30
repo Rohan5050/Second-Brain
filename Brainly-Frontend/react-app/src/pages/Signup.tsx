@@ -46,6 +46,17 @@ export function Signup() {
        <div className="flex justify-center mt-4 sm:px-8 sm:text-lg relative z-10 w-full px-4 py-2 rounded-md text-lg font-semibold transition-transform duration-150 ease-out">
           <Button onClick={signup} variant="primary" text="Sign Up Now" fullWidth={true} />
         </div>
+        <div className="flex justify-center mt-2">
+          <p className="text-xs text-muted-foreground">
+            Already have an account?{' '}
+            <a
+              href="/signin"
+              className="font-small text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 transition-colors"
+            >
+              Sign in
+            </a>
+          </p>
+        </div>
        </div>
        </div>
         
